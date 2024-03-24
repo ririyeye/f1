@@ -3,8 +3,11 @@ set_project(f1)
 add_rules("plugin.vsxmake.autoupdate" , {outputdir="."})
 toolchain("arm-none-eabi")
     set_kind("standalone")
-    -- set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
-    set_cross("arm-none-eabi-gcc")
+    if is_host("windows") then
+        set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
+    else
+        set_cross("arm-none-eabi-gcc")
+    end
 toolchain_end()
 
 add_cxflags(
