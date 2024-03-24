@@ -22,7 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "usbd_cdc_if.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,7 +56,8 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+static int testidx = 0;
+static char testbuff[128];
 /* USER CODE END 0 */
 
 /**
@@ -96,8 +98,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      HAL_Delay(1000);
-    CDC_Transmit_FS("test\r\n", 6);
+    HAL_Delay(1000);
+    int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
+    CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

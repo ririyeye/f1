@@ -11,7 +11,7 @@ target("f1")
     set_toolchains("arm-none-eabi")
     add_files(
         "./USB_DEVICE/APP/usbd_desc.c",
-        {cflags="-O0"}
+        {cflags="-O2"}
     )
     add_files(
         "./USB_DEVICE/APP/usb_device.c",
@@ -53,11 +53,13 @@ target("f1")
     add_cxflags(
         "-mcpu=cortex-m3",
         "-mthumb",
+        "-flto",
         "-Wall -fdata-sections -ffunction-sections",
         "-g0",{force = true}
         )
 
     add_asflags(
+        "-flto",
         "-mcpu=cortex-m3",
         "-mthumb",
         "-x assembler-with-cpp",
@@ -66,6 +68,8 @@ target("f1")
         )
 
     add_ldflags(
+        "--specs=nano.specs",
+        "-flto",
         "-mcpu=cortex-m3",
         "-mthumb",
         "-L./",
