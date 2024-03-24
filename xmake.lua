@@ -3,7 +3,8 @@ set_project(f1)
 add_rules("plugin.vsxmake.autoupdate" , {outputdir="."})
 toolchain("arm-none-eabi")
     set_kind("standalone")
-    set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
+    -- set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
+    set_cross("arm-none-eabi-gcc")
 toolchain_end()
 
 add_cxflags(
@@ -19,20 +20,22 @@ add_cxxflags(
 add_ldflags(
     "-Wl,--print-memory-usage"
 )
+set_arch("arm")
+set_plat("cross")
 
 set_policy("build.optimization.lto", true)
 target("f1")
     set_kind("binary")
     set_toolchains("arm-none-eabi")
     add_files(
-        "./USB_DEVICE/APP/usbd_desc.c",
-        {cflags="-O2"}
+        "./USB_DEVICE/App/usbd_desc.c",
+        {cxflags="-O2"}
     )
     add_files(
-        "./USB_DEVICE/APP/usb_device.c",
-        "./USB_DEVICE/APP/usbd_cdc_if.c",
+        "./USB_DEVICE/App/usb_device.c",
+        "./USB_DEVICE/App/usbd_cdc_if.c",
         "./USB_DEVICE/Target/*.c",
-        {cflags="-O2"}
+        {cxflags="-O2"}
     )
     add_files(
         "./Drivers/STM32F1xx_HAL_Driver/Src/*.c",
@@ -42,7 +45,7 @@ target("f1")
         "./Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c",
         "./Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c",
         "./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c",
-        {cflags="-O2"}
+        {cxflags="-O2"}
     )
 
 
@@ -62,9 +65,9 @@ target("f1")
         "USE_HAL_DRIVER",
         "STM32F103xB"
     )
-    remove_files("Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_timebase_tim_template.c")
-    remove_files("Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_timebase_rtc_alarm_template.c")
-    remove_files("Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_msp_template.c")
+    remove_files("Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_timebase_tim_template.c")
+    remove_files("Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_timebase_rtc_alarm_template.c")
+    remove_files("Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_msp_template.c")
     add_cxflags(
         "-mcpu=cortex-m3",
         "-mthumb",
@@ -94,23 +97,3 @@ target("f1")
     )
     set_targetdir("build")
     set_filename("f1.elf")
-
-    after_build(function(target)
-        print("生成HEX 和BIN 文件")
-
-        local gcc = target:tool("cc")
-        local objpath , _ = path.filename(gcc):gsub("gcc", "objcopy.exe")
-        local objcopy = path.join(path.directory(gcc), objpath)
-
-        os.vrunv(objcopy, {"-O" ,"ihex" , target:targetfile() , "build//f1.hex"})
-        os.vrunv(objcopy, {"-O" ,"binary" , target:targetfile() , "build//f1.bin"})
-
-        print("生成已完成")
-        import("core.project.task")
-        -- task.run("flash")
-        print("********************储存空间占用情况*****************************")
-        os.exec("arm-none-eabi-size -Ax ./build/f1.elf")
-        os.exec("arm-none-eabi-size -Bx ./build/f1.elf")
-        os.exec("arm-none-eabi-size -Bd ./build/f1.elf")
-        print("heap-堆、stack-栈、.data-已初始化的变量全局/静态变量,bss-未初始化的data、.text-代码和常量")
-    end)
