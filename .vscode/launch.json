@@ -18,6 +18,10 @@
             // "runToEntryPoint": "main",
             "servertype": "external",
             "breakAfterReset":true,
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            },
             "overrideRestartCommands": [
                 "monitor halt",
                 "monitor reset"
