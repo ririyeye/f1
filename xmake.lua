@@ -6,6 +6,21 @@ toolchain("arm-none-eabi")
     set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
 toolchain_end()
 
+add_cxflags(
+    "-Wpedantic"
+)
+
+add_cxxflags(
+    "-fno-rtti",
+    "-fno-exceptions",
+    "-fno-threadsafe-statics"
+)
+
+add_ldflags(
+    "-Wl,--print-memory-usage"
+)
+
+set_policy("build.optimization.lto", true)
 target("f1")
     set_kind("binary")
     set_toolchains("arm-none-eabi")
@@ -53,13 +68,11 @@ target("f1")
     add_cxflags(
         "-mcpu=cortex-m3",
         "-mthumb",
-        "-flto",
         "-Wall -fdata-sections -ffunction-sections",
         "-g0",{force = true}
         )
 
     add_asflags(
-        "-flto",
         "-mcpu=cortex-m3",
         "-mthumb",
         "-x assembler-with-cpp",
@@ -69,15 +82,16 @@ target("f1")
 
     add_ldflags(
         "--specs=nano.specs",
-        "-flto",
         "-mcpu=cortex-m3",
         "-mthumb",
-        "-L./",
         "-TSTM32F103C8Tx_FLASH.ld",
         "-Wl,--gc-sections",
-        "-lc -lm -u _printf_float",{force = true}
+        "-u _printf_float",{force = true}
         )
-
+    add_links(
+        "c",
+        "m"
+    )
     set_targetdir("build")
     set_filename("f1.elf")
 
@@ -98,5 +112,5 @@ target("f1")
         os.exec("arm-none-eabi-size -Ax ./build/f1.elf")
         os.exec("arm-none-eabi-size -Bx ./build/f1.elf")
         os.exec("arm-none-eabi-size -Bd ./build/f1.elf")
-        print("heap-堆、stck-栈、.data-已初始化的变量全局/静态变量,bss-未初始化的data、.text-代码和常量")
+        print("heap-堆、stack-栈、.data-已初始化的变量全局/静态变量,bss-未初始化的data、.text-代码和常量")
     end)
