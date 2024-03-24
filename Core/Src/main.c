@@ -96,6 +96,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      HAL_Delay(1000);
+    CDC_Transmit_FS("test\r\n", 6);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
