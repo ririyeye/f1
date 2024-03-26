@@ -57,7 +57,7 @@ target("f1")
         "Core/Src/stm32f1xx_hal_timebase_tim.c",
         "USB_DEVICE/App/usb_device.c",
         "USB_DEVICE/App/usbd_desc.c",
-        "USB_DEVICE/App/usbd_cdc_if.c",
+        "USB_DEVICE/App/usbd_custom_hid_if.c",
         "USB_DEVICE/Target/usbd_conf.c",
         "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c",
         "Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c",
@@ -89,7 +89,7 @@ target("f1")
         "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c",
         "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c",
         "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c",
-        "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c",
+        "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
         "Core/Src/sysmem.c",
         "Core/Src/syscalls.c",
         "startup_stm32f103xb.s"
@@ -106,7 +106,7 @@ target("f1")
             "./Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2",
             "./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3",
             "./Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
-            "./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc",
+            "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc",
             "./Drivers/CMSIS/Device/ST/STM32F1xx/Include",
             "./Drivers/CMSIS/Include"
         )

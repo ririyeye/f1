@@ -23,7 +23,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "usbd_cdc_if.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -251,7 +250,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
-    CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
+    // CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
     osDelay(1000);
   }
   /* USER CODE END 5 */
