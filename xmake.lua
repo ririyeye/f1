@@ -37,6 +37,7 @@ add_ldflags(
     "--specs=nano.specs",
     "-TSTM32F103C8Tx_FLASH.ld",
     "-Wl,--gc-sections",
+    "-Wl,--print-memory-usage",
     "-u _printf_float",{force = true}
     )
 set_arch("arm")
