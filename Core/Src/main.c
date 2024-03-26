@@ -142,9 +142,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_Delay(1000);
-    int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
-    CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -253,7 +250,9 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
+    CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
+    osDelay(1000);
   }
   /* USER CODE END 5 */
 }

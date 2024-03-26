@@ -15,20 +15,21 @@ local mcu = "-Wall -Wextra -Wpedantic -mcpu=cortex-m3 -fdata-sections -ffunction
 
 
 add_defines(
+    "STM32_THREAD_SAFE_STRATEGY=5",
     "USE_HAL_DRIVER",
     "STM32F103xB"
 )
 add_cxflags(
     optim,
     mcu,
-    "-g0",{force = true}
+    {force = true}
     )
 
 add_asflags(
     optim,
     mcu,
     "-x assembler-with-cpp",
-    "-g0",{force = true}
+    {force = true}
     )
 
 add_ldflags(
@@ -48,6 +49,7 @@ target("f1")
     set_kind("binary")
     set_toolchains("arm-none-eabi")
     add_files(
+        "newlib_lock_glue.c",
         "Core/Src/main.c",
         "Core/Src/freertos.c",
         "Core/Src/stm32f1xx_it.c",
