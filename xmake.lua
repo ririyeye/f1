@@ -6,7 +6,7 @@ toolchain("arm-none-eabi")
     if is_host("windows") then
         set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
     else
-        set_cross("arm-none-eabi-")
+        set_sdkdir("/home/wangyang/toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1")
     end
 toolchain_end()
 
