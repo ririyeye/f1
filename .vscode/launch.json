@@ -13,7 +13,7 @@
             "type": "cortex-debug",
             "armToolchainPath":"/home/wangyang/toolchain/gcc-arm-none-eabi-5_2-2015q4/bin",
             // "ipAddress": "192.168.30.32",
-            "gdbTarget":"192.168.30.32:2331",
+            "gdbTarget":"192.168.30.72:2331",
             "device": "STM32F103R8",
             // "runToEntryPoint": "main",
             "servertype": "external",
@@ -35,12 +35,12 @@
             "postLaunchCommands": [
             ],
             "showDevDebugOutput": "both",
+            "svdFile": "/home/wangyang/cmsis-svd-stm32/stm32f1/STM32F103.svd",
             "swoConfig": {
                 "enabled": true,
-                "cpuFrequency": 120000000,
+                "cpuFrequency": 72000000,
                 "swoFrequency": 7500000,
                 "source": "probe",
-                "swoPort":"192.168.30.32:2332",
                 "decoders": [
                     {
                         "type": "console",
