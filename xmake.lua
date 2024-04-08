@@ -33,7 +33,6 @@ add_asflags(
     )
 
 add_ldflags(
-    optim,
     mcu,
     "--specs=nano.specs",
     "-TSTM32F103C8Tx_FLASH.ld",
