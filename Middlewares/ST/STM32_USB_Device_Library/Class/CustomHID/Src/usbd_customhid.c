@@ -60,6 +60,7 @@ EndBSPDependencies */
 /** @defgroup USBD_CUSTOM_HID_Private_TypesDefinitions
   * @{
   */
+#include "usbd_help.h"
 /**
   * @}
   */
@@ -175,18 +176,18 @@ __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_CfgFSDesc[USB_CUSTOM_HID_CONFIG_DES
   USB_DESC_TYPE_ENDPOINT, /*bDescriptorType:*/
 
   CUSTOM_HID_EPIN_ADDR,     /*bEndpointAddress: Endpoint Address (IN)*/
-  0x03,          /*bmAttributes: Interrupt endpoint*/
-  CUSTOM_HID_EPIN_SIZE, /*wMaxPacketSize: 2 Byte max */
-  0x00,
+  CUSTOM_HID_EPIN_TYPE,          /*bmAttributes: Interrupt endpoint*/
+  LOBYTE(CUSTOM_HID_EPIN_SIZE), /*wMaxPacketSize: 2 Byte max */
+  HIBYTE(CUSTOM_HID_EPIN_SIZE), /*wMaxPacketSize: 2 Byte max */
   CUSTOM_HID_FS_BINTERVAL,          /*bInterval: Polling Interval */
   /* 34 */
 
   0x07,          /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT, /* bDescriptorType: */
   CUSTOM_HID_EPOUT_ADDR,  /*bEndpointAddress: Endpoint Address (OUT)*/
-  0x03, /* bmAttributes: Interrupt endpoint */
-  CUSTOM_HID_EPOUT_SIZE,  /* wMaxPacketSize: 2 Bytes max  */
-  0x00,
+  CUSTOM_HID_EPOUT_TYPE, /* bmAttributes: Interrupt endpoint */
+  LOBYTE(CUSTOM_HID_EPOUT_SIZE), /*wMaxPacketSize: 2 Byte max */
+  HIBYTE(CUSTOM_HID_EPOUT_SIZE), /*wMaxPacketSize: 2 Byte max */
   CUSTOM_HID_FS_BINTERVAL,  /* bInterval: Polling Interval */
   /* 41 */
 };
@@ -234,18 +235,18 @@ __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_CfgHSDesc[USB_CUSTOM_HID_CONFIG_DES
   USB_DESC_TYPE_ENDPOINT, /*bDescriptorType:*/
 
   CUSTOM_HID_EPIN_ADDR,     /*bEndpointAddress: Endpoint Address (IN)*/
-  0x03,          /*bmAttributes: Interrupt endpoint*/
-  CUSTOM_HID_EPIN_SIZE, /*wMaxPacketSize: 2 Byte max */
-  0x00,
+  CUSTOM_HID_EPIN_TYPE,          /*bmAttributes: Interrupt endpoint*/
+  LOBYTE(CUSTOM_HID_EPIN_SIZE), /*wMaxPacketSize: 2 Byte max */
+  HIBYTE(CUSTOM_HID_EPIN_SIZE), /*wMaxPacketSize: 2 Byte max */
   CUSTOM_HID_HS_BINTERVAL,          /*bInterval: Polling Interval */
   /* 34 */
 
   0x07,          /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT, /* bDescriptorType: */
   CUSTOM_HID_EPOUT_ADDR,  /*bEndpointAddress: Endpoint Address (OUT)*/
-  0x03, /* bmAttributes: Interrupt endpoint */
-  CUSTOM_HID_EPOUT_SIZE,  /* wMaxPacketSize: 2 Bytes max  */
-  0x00,
+  CUSTOM_HID_EPOUT_TYPE, /* bmAttributes: Interrupt endpoint */
+  LOBYTE(CUSTOM_HID_EPOUT_SIZE), /*wMaxPacketSize: 2 Byte max */
+  HIBYTE(CUSTOM_HID_EPOUT_SIZE), /*wMaxPacketSize: 2 Byte max */
   CUSTOM_HID_HS_BINTERVAL,  /* bInterval: Polling Interval */
   /* 41 */
 };
@@ -293,18 +294,18 @@ __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_OtherSpeedCfgDesc[USB_CUSTOM_HID_CO
   USB_DESC_TYPE_ENDPOINT, /*bDescriptorType:*/
 
   CUSTOM_HID_EPIN_ADDR,     /*bEndpointAddress: Endpoint Address (IN)*/
-  0x03,          /*bmAttributes: Interrupt endpoint*/
-  CUSTOM_HID_EPIN_SIZE, /*wMaxPacketSize: 2 Byte max */
-  0x00,
+  CUSTOM_HID_EPOUT_TYPE,          /*bmAttributes: Interrupt endpoint*/
+  LOBYTE(CUSTOM_HID_EPIN_SIZE), /*wMaxPacketSize: 2 Byte max */
+  HIBYTE(CUSTOM_HID_EPIN_SIZE), /*wMaxPacketSize: 2 Byte max */
   CUSTOM_HID_FS_BINTERVAL,          /*bInterval: Polling Interval */
   /* 34 */
 
   0x07,          /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT, /* bDescriptorType: */
   CUSTOM_HID_EPOUT_ADDR,  /*bEndpointAddress: Endpoint Address (OUT)*/
-  0x03, /* bmAttributes: Interrupt endpoint */
-  CUSTOM_HID_EPOUT_SIZE,  /* wMaxPacketSize: 2 Bytes max  */
-  0x00,
+  CUSTOM_HID_EPOUT_TYPE, /* bmAttributes: Interrupt endpoint */
+  LOBYTE(CUSTOM_HID_EPOUT_SIZE), /*wMaxPacketSize: 2 Byte max */
+  HIBYTE(CUSTOM_HID_EPOUT_SIZE), /*wMaxPacketSize: 2 Byte max */
   CUSTOM_HID_FS_BINTERVAL,  /* bInterval: Polling Interval */
   /* 41 */
 };
@@ -592,7 +593,7 @@ static uint8_t  *USBD_CUSTOM_HID_GetFSCfgDesc(uint16_t *length)
   */
 static uint8_t  *USBD_CUSTOM_HID_GetHSCfgDesc(uint16_t *length)
 {
-  *length = sizeof(USBD_CUSTOM_HID_CfgHSDesc);
+      *length = sizeof(USBD_CUSTOM_HID_CfgHSDesc);
   return USBD_CUSTOM_HID_CfgHSDesc;
 }
 

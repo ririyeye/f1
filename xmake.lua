@@ -89,6 +89,7 @@ target("f1")
         "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c",
         "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c",
         "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c",
+        "Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_help.c",
         "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Src/usbd_customhid.c",
         "Core/Src/sysmem.c",
         "Core/Src/syscalls.c",
