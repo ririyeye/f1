@@ -2,8 +2,11 @@
 CAD.formats=
 CAD.pinconfig=
 CAD.provider=
-FREERTOS.IPParameters=Tasks01
+FREERTOS.IPParameters=Tasks01,configRECORD_STACK_HIGH_ADDRESS,configTOTAL_HEAP_SIZE,configUSE_NEWLIB_REENTRANT
 FREERTOS.Tasks01=defaultTask,24,128,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.configRECORD_STACK_HIGH_ADDRESS=1
+FREERTOS.configTOTAL_HEAP_SIZE=10240
+FREERTOS.configUSE_NEWLIB_REENTRANT=1
 File.Version=6
 GPIO.groupedBy=
 KeepUserPlacement=false
