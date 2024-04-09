@@ -1,16 +1,23 @@
 set_project(f1)
+
 add_rules("mode.release", "mode.debug" , "mode.releasedbg" , "mode.minsizerel")
+set_arch("arm")
+set_plat("cross")
+set_toolchains("arm-none-eabi")
+set_symbols("debug")
+set_strip("all")
+set_policy("build.optimization.lto", true)
 add_rules("plugin.vsxmake.autoupdate" , {outputdir="."})
+
 toolchain("arm-none-eabi")
     set_kind("standalone")
     if is_host("windows") then
-        set_sdkdir("C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10")
+        set_sdkdir("D:\\xpack-arm-none-eabi-gcc-13.2.1-1.1")
     else
         set_sdkdir("/home/wangyang/toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1")
     end
 toolchain_end()
 
-local optim = ""
 local mcu = "-mcpu=cortex-m3 -fdata-sections -ffunction-sections"
 
 set_warnings("all", "extra" , "pedantic")
@@ -20,13 +27,11 @@ add_defines(
     "STM32F103xB"
 )
 add_cxflags(
-    optim,
     mcu,
     {force = true}
     )
 
 add_asflags(
-    optim,
     mcu,
     "-x assembler-with-cpp",
     {force = true}
@@ -40,11 +45,7 @@ add_ldflags(
     "-Wl,--print-memory-usage",
     "-u _printf_float",{force = true}
     )
-set_arch("arm")
-set_plat("cross")
-set_toolchains("arm-none-eabi")
 
-set_policy("build.optimization.lto", true)
 target("f1")
     set_kind("binary")
     add_files(
@@ -115,4 +116,3 @@ target("f1")
         "m"
     )
     set_targetdir("build")
-    set_filename("f1.elf")
