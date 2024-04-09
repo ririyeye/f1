@@ -36,7 +36,7 @@
             "postLaunchCommands": [
             ],
             "showDevDebugOutput": "both",
-            "svdFile": "/home/wangyang/cmsis-svd-stm32/stm32f1/STM32F103.svd",
+            "svdFile": "./STM32F103.svd",
             "swoConfig": {
                 "enabled": true,
                 "cpuFrequency": 72000000,
