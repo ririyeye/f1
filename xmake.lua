@@ -1,5 +1,5 @@
 set_project(f1)
-
+add_rules("mode.release", "mode.debug" , "mode.releasedbg" , "mode.minsizerel")
 add_rules("plugin.vsxmake.autoupdate" , {outputdir="."})
 toolchain("arm-none-eabi")
     set_kind("standalone")
@@ -10,10 +10,10 @@ toolchain("arm-none-eabi")
     end
 toolchain_end()
 
-local optim = "-Os -g3"
-local mcu = "-Wall -Wextra -Wpedantic -mcpu=cortex-m3 -fdata-sections -ffunction-sections"
+local optim = ""
+local mcu = "-mcpu=cortex-m3 -fdata-sections -ffunction-sections"
 
-
+set_warnings("all", "extra" , "pedantic")
 add_defines(
     "STM32_THREAD_SAFE_STRATEGY=5",
     "USE_HAL_DRIVER",
@@ -42,11 +42,11 @@ add_ldflags(
     )
 set_arch("arm")
 set_plat("cross")
+set_toolchains("arm-none-eabi")
 
 set_policy("build.optimization.lto", true)
 target("f1")
     set_kind("binary")
-    set_toolchains("arm-none-eabi")
     add_files(
         "newlib_lock_glue.c",
         "Core/Src/main.c",

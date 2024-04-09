@@ -8,6 +8,7 @@
             "name": "Cortex Debug",
             "cwd": "${workspaceFolder}",
             "executable": "./build/f1.elf",
+            "symbolFiles": ["./build/f1.sym"],
             "gdbPath": "gdb-multiarch",
             "request": "launch",
             "type": "cortex-debug",
