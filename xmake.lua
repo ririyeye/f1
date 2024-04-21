@@ -49,6 +49,7 @@ add_ldflags(
 target("f1")
     set_kind("binary")
     add_files(
+        "./swoinit.c",
         "newlib_lock_glue.c",
         "Core/Src/main.c",
         "Core/Src/freertos.c",

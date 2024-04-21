@@ -28,6 +28,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+void swoInit(uint32_t portMask, uint32_t cpuCoreFreqHz, uint32_t baudrate);
 
 /* USER CODE END PTD */
 
@@ -243,6 +244,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
+  swoInit(1,72000000,875000);
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 5 */
@@ -250,6 +252,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
+    printf("%s", testbuff);
     // CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
     osDelay(1000);
   }

@@ -28,20 +28,22 @@
                 "monitor reset"
             ],
             "overrideResetCommands": [
+                "monitor halt",
                 "monitor reset"
             ],
-            // "preLaunchCommands": [
-            //     "monitor reset"
-            // ],
-            // "postLaunchCommands": [
-            // ],
+            "preLaunchCommands": [
+                "monitor swo start 72000000 875000"
+            ],
+            "postLaunchCommands": [
+            ],
             "svdFile": "./STM32F103.svd",
-            "showDevDebugOutput": "both",
+            "showDevDebugOutput": "none",
             "swoConfig": {
                 "enabled": false,
                 "cpuFrequency": 72000000,
-                "swoFrequency": 7500000,
-                "source": "probe",
+                "swoFrequency": 875000,
+                "source": "socket",
+                "swoPort": "192.168.30.72:2333",
                 "decoders": [
                     {
                         "type": "console",
