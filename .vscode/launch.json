@@ -12,11 +12,11 @@
             "gdbPath": "gdb-multiarch",
             "request": "launch",
             "type": "cortex-debug",
-            "armToolchainPath":"/home/wangyang/toolchain/gcc-arm-none-eabi-5_2-2015q4/bin",
+            "armToolchainPath":"/home/wangyang/toolchain/xpack-arm-none-eabi-gcc-13.2.1-1.1/bin",
             // "ipAddress": "192.168.30.32",
             "gdbTarget":"192.168.30.72:2331",
             "device": "STM32F103R8",
-            // "runToEntryPoint": "main",
+            "runToEntryPoint": "Reset_Handler",
             "servertype": "external",
             "breakAfterReset":true,
             "liveWatch": {
@@ -30,15 +30,15 @@
             "overrideResetCommands": [
                 "monitor reset"
             ],
-            "preLaunchCommands": [
-                "monitor reset"
-            ],
-            "postLaunchCommands": [
-            ],
-            "showDevDebugOutput": "both",
+            // "preLaunchCommands": [
+            //     "monitor reset"
+            // ],
+            // "postLaunchCommands": [
+            // ],
             "svdFile": "./STM32F103.svd",
+            "showDevDebugOutput": "both",
             "swoConfig": {
-                "enabled": true,
+                "enabled": false,
                 "cpuFrequency": 72000000,
                 "swoFrequency": 7500000,
                 "source": "probe",
