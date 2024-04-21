@@ -7,7 +7,7 @@ set_toolchains("arm-none-eabi")
 set_symbols("debug")
 set_strip("all")
 set_policy("build.optimization.lto", true)
-add_rules("plugin.vsxmake.autoupdate" , {outputdir="."})
+add_rules("plugin.compile_commands.autoupdate")
 
 toolchain("arm-none-eabi")
     set_kind("standalone")
