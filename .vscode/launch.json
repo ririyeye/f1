@@ -32,7 +32,9 @@
                 "monitor reset"
             ],
             "preLaunchCommands": [
-                "monitor swo start 72000000 875000"
+                "monitor swo start 72000000 875000",
+                "monitor halt",
+                "monitor reset"
             ],
             "postLaunchCommands": [
             ],

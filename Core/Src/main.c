@@ -244,15 +244,17 @@ static void MX_GPIO_Init(void)
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
-  swoInit(1,72000000,875000);
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 5 */
+  swoInit(1,72000000,875000);
+  printf("swo init!!\n");
+  UNUSED(argument);
   /* Infinite loop */
   for(;;)
   {
     int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
-    printf("%s", testbuff);
+    printf("len = %d , %s", sdlen, testbuff);
     // CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
     osDelay(1000);
   }
