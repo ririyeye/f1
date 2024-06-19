@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include <inttypes.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -248,15 +249,15 @@ void StartDefaultTask(void *argument)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 5 */
   swoInit(1,72000000,875000);
-  printf("swo init!!\n");
+  printf("swo init!!\n"); 
   UNUSED(argument);
   /* Infinite loop */
   for(;;)
   {
-    int sdlen = sprintf(testbuff, "test idx = %d\r\n", testidx++);
-    printf("len = %d , %s", sdlen, testbuff);
-    // CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
-    osDelay(1000);
+      int sdlen = sprintf(testbuff, "test idx = %d %" PRIu32 "\r\n", testidx++, osKernelGetTickCount());
+      printf("len = %d , %s", sdlen, testbuff);
+      // CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
+      osDelay(100);
   }
   /* USER CODE END 5 */
 }
