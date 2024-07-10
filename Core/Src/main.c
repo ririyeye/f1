@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "common.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -61,13 +62,12 @@ static void MX_GPIO_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-
+commdat com = {0};
+osSemaphoreDef _wifisemdef;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-static int testidx = 0;
-static char testbuff[128];
 /* USER CODE END 0 */
 
 /**
@@ -124,7 +124,12 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle[0] = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle[1] = osThreadNew(wifi_recv, NULL, &defaultTask_attributes);
+  defaultTaskHandle[2] = osThreadNew(wifi_send, NULL, &defaultTask_attributes);
+
+  defaultTaskHandle[3] = osThreadNew(cmd_line, NULL, &defaultTask_attributes);
+  defaultTaskHandle[4] = osThreadNew(c22gs, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -132,6 +137,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
+  com.wifisem = osSemaphoreCreate(_wifisemdef, 1);
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
@@ -254,8 +260,8 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-      int sdlen = sprintf(testbuff, "test idx = %d %" PRIu32 "\r\n", testidx++, osKernelGetTickCount());
-      printf("len = %d , %s", sdlen, testbuff);
+
+
       // CDC_Transmit_FS((uint8_t*)testbuff, sdlen);
       osDelay(100);
   }
